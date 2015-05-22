@@ -5,15 +5,17 @@ indent() {
   sed -u 's/^/       /'
 }
 
+LIBRARY="ffmpeg"
+
 FFMPEG_VERSION="2.6.3"
 
-echo "-----> Install ffmpeg $FFMPEG_VERSION"
+echo "-----> Install $LIBRARY $FFMPEG_VERSION"
 
 BUILD_DIR="$1"
 VENDOR_PATH="$BUILD_DIR/vendor"
 
 PROFILE_PATH="$BUILD_DIR/.profile.d"
-INSTALL_PATH="$VENDOR_PATH/ffmpeg"
+INSTALL_PATH="$VENDOR_PATH/$LIBRARY"
 
 DOWNLOAD_URL="http://johnvansickle.com/ffmpeg/releases/ffmpeg-$FFMPEG_VERSION-64bit-static.tar.xz"
 
@@ -25,4 +27,5 @@ cd "$INSTALL_PATH"
 curl -L --silent $DOWNLOAD_URL | tar xJ --strip-components=1
 
 mkdir -p "$PROFILE_PATH"
-echo 'export PATH="$PATH:$INSTALL_PATH"' >> "$PROFILE_PATH/ffmpeg.sh"
+EXPORT_PATH='export PATH="$PATH:'"$INSTALL_PATH"'"'
+echo "$EXPORT_PATH" >> "$PROFILE_PATH/$LIBRARY.sh"
