@@ -1,27 +1,28 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -eo pipefail
 
 indent() {
   sed -u 's/^/       /'
 }
 
-echo "-----> Install ffmpeg"
-FFMPEG_VERSION=2.6.3
+FFMPEG_VERSION="2.6.3"
 
-BUILD_DIR=$1
-VENDOR_PATH=$1/vendor
+echo "-----> Install ffmpeg $FFMPEG_VERSION"
 
-PROFILE_PATH="$1/.profile.d"
+BUILD_DIR="$1"
+VENDOR_PATH="$BUILD_DIR/vendor"
+
+PROFILE_PATH="$BUILD_DIR/.profile.d"
+INSTALL_PATH="$VENDOR_PATH/ffmpeg"
 
 DOWNLOAD_URL="http://johnvansickle.com/ffmpeg/releases/ffmpeg-$FFMPEG_VERSION-64bit-static.tar.xz"
 
 echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
 
-cd $BUILD_DIR
-mkdir -p $VENDOR_DIR
-cd $VENDOR_DIR
-mkdir -p ffmpeg
-cd ffmpeg
+mkdir -p "$INSTALL_PATH"
+cd "$INSTALL_PATH"
+
 curl -L --silent $DOWNLOAD_URL | tar xJ --strip-components=1
 
-mkdir -p $(dirname $PROFILE_PATH)
-echo 'export PATH="$PATH:$VENDOR_PATH/ffmpeg"' >> "$PROFILE_PATH/ffmpeg.sh"
+mkdir -p "$PROFILE_PATH"
+echo 'export PATH="$PATH:$INSTALL_PATH"' >> "$PROFILE_PATH/ffmpeg.sh"
