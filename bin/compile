@@ -19,7 +19,9 @@ VENDOR_PATH="$BUILD_DIR/$VENDOR_DIR"
 PROFILE_PATH="$BUILD_DIR/.profile.d"
 INSTALL_PATH="$VENDOR_PATH/$LIBRARY"
 
-DOWNLOAD_URL="http://johnvansickle.com/ffmpeg/releases/ffmpeg-$FFMPEG_VERSION-64bit-static.tar.xz"
+# Use our own storage location for the actual static build, allowing us to ensure ongoing access.
+# DOWNLOAD_URL="http://johnvansickle.com/ffmpeg/releases/ffmpeg-$FFMPEG_VERSION-64bit-static.tar.xz"
+DOWNLOAD_URL="https://s3.amazonaws.com/volt-buildpack-support/ffmpeg-$FFMPEG_VERSION-64bit-static.tar.xz"
 
 echo "DOWNLOAD_URL = " $DOWNLOAD_URL | indent
 
