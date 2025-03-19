@@ -7,7 +7,7 @@ indent() {
 
 LIBRARY="ffmpeg"
 
-FFMPEG_VERSION="3.2.3"
+FFMPEG_VERSION="7.1.1"
 
 echo "-----> Install $LIBRARY $FFMPEG_VERSION"
 
